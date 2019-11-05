@@ -1,13 +1,90 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+
+
+    /*-webkit-font-smoothing: antialiased;*/
+    /*-moz-osx-font-smoothing: grayscale;*/
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+
+.textFamily{
+    font-family: 'Nunito Sans', sans-serif;
+}
+.headerbg{
+    background-color: #d8d2cb;
+}
+.headermargin{
+    margin-top: 100px;
+}
+.buttonBorder{
+    border-radius: 15px !important;
+}
+
+
+
+@media screen and (min-width: 700px) {
+    .heightCard{
+
+        height: 100px;
+
+
+
+    }
+}
+@media screen and (min-width: 700px) {
+    .heightplayCard{
+        width: 100%;
+        background-color: #f1f3f4;
+
+
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .heightCard{
+        height: 150px;
+
+    }
+}
+@media screen and (max-width: 700px) {
+     .heightplayCard{
+        width: 100%;
+        background-color: #f1f3f4;
+
+
+    }
+}
+.playBoard{
+    position: fixed;
+    bottom: 1px;
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-bottom: 16px solid blue;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+.textColor{
+  color: #3d5aa9;
+}
+@media screen and (min-width: 700px) {
+  .albumplay_top_image{
+    height:160px;
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .albumplay_top_image{
+    height:150px;
+    width: 150px;
+  }
+}
+#a:hover{
+  background-color: #d8d2cb;
 }
