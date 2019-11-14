@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from mp3playist import views
+from albumview import views as album_board_view
+from albums import views as album_view
+from trending import views as trending_view
+from artist  import views as artist_view
+
 
 urlpatterns = [
+    path('',views.index,name="index"),
+    path('artist', artist_view.artist, name="artist"),
+    path('trending', trending_view.trending, name='trending'),
+    path('album', album_view.albums, name="albums"),
+    path('album_board',album_board_view.album_board,name='album_board'),
+    path('track', views.tracklist, name='tracklist'),
     path('admin/', admin.site.urls),
 ]

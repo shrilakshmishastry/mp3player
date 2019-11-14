@@ -3,26 +3,34 @@ import PlayBoard from "../presentational/playboard";
 import axios from 'axios';
 import {Card, Col, Container, Image,Row,Table,thead,tr,th,tbody,Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Link} from "react-router-dom";
 
 
 
 class  Album_play extends React.Component{
+constructor(props){
+  super(props);
+  this.PlayBoard = React.createRef();
+}
+
   state={
     album:[{
       track_name:[],
       artist_name:[],
-      track_ur:[],
+      track_url:[],
       icon:[]
     }],
     photo_url:"",
     album_name:"",
     composer_name:[],
     release_date:"",
-
+    type:[],
+    index:0
   };
   trackUrl = [];
+
   componentDidMount(){
-    console.log("hello");
+
     axios.get('album_board',{
       params:{
         key:this.props.location.state.key,
@@ -48,6 +56,7 @@ class  Album_play extends React.Component{
       }
 
       this.setState({
+        type:result.value[0].type,
         photo_url:result.value[0].photo_url,
         album_name:result.value[0].album_name,
         composer_name:result.value[0].composer_name,
@@ -89,9 +98,14 @@ class  Album_play extends React.Component{
 
         }
       }
+      for (let i=0;i<this.state.album.length;i++){
+        this.trackUrl.push(this.state.album[i].track_url)
+      }
 
-      
+      this.setState({
+        index:1,
 
+      });
     })
     .catch((err)=>{
       console.log(err);
@@ -100,23 +114,97 @@ class  Album_play extends React.Component{
 
 
   // top image Component
-  renderImage(url,album_name,release_date,composer_name){
-    return(
-      <Container>
-        <Row>
-          <Col md={3} className=" text-center">
-            <Image  src={url} className="albumplay_top_image "  />
-          </Col>
-          <Col md={9} className="pt-md-4 pt-3 d-none d-sm-block" >
+  renderImage(url,album_name,release_date,composer_name,type){
+    if(type==='artist'){
+      return(
+        <Container>
+          <Row>
+            <Col md={3} className=" text-center">
+              <Image  src={url} className="albumplay_top_image "  />
+            </Col>
+            <Col md={9} className="pt-md-4 pt-3 d-none d-sm-block" >
+              <div className="d-flex flex-column mt-md-3" >
+                <h3 className="font-weight-bold" >Best of {album_name}</h3>
+                <div className=" d-flex flex-row text-center">
+                  <p className="font-weight-bold mb-0 ">Recently released </p>&nbsp;
+                  <p className=" mb-0 font-weight-bold text-secondary" >
+                  &nbsp;
+                 {release_date}
+                  </p>
+                </div>
+              </div>
+            </Col>
+            <Col md={9} className="pt-md-4 pt-3 d-block d-sm-none text-center" >
+              <div className="d-flex flex-column" >
+                <h3 className="font-weight-bold" >{album_name}</h3>
+
+                <div className=" d-flex flex-row ">
+                  <p className="font-weight-bold mb-0 ml-5 pl-5">Recently released </p>&nbsp;
+                  <p className=" mb-0 font-weight-bold text-secondary" >
+                  &nbsp;
+                 {release_date}
+                  </p>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      )
+    }
+    if(type==='composer'){
+      return(
+        <Container>
+          <Row>
+            <Col md={3} className=" text-center">
+              <Image  src={url} className="albumplay_top_image "  />
+            </Col>
+            <Col md={9} className="pt-md-4 pt-3 d-none d-sm-block" >
+              <div className="d-flex flex-column mt-md-3" >
+                <h3 className="font-weight-bold" >Best of {album_name}</h3>
+                <div className=" d-flex flex-row text-center">
+                  <p className="font-weight-bold mb-0 ">Recently released </p>&nbsp;
+                  <p className=" mb-0 font-weight-bold text-secondary" >
+                  &nbsp;
+                 {release_date}
+                  </p>
+                </div>
+              </div>
+            </Col>
+            <Col md={9} className="pt-md-4 pt-3 d-block d-sm-none text-center" >
+              <div className="d-flex flex-column" >
+                <h3 className="font-weight-bold" >Best of {album_name}</h3>
+
+                <div className=" d-flex flex-row ">
+                  <p className="font-weight-bold mb-0 ml-5 pl-5">Recently released </p>&nbsp;
+                  <p className=" mb-0 font-weight-bold text-secondary" >
+                  &nbsp;
+                 {release_date}
+                  </p>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      )
+    }
+    if(type==='album' || type==='track'){
+      return(
+        <Container>
+          <Row>
+            <Col md={3} className=" text-center">
+              <Image  src={url} className="albumplay_top_image "  />
+            </Col>
+            <Col md={9} className="pt-md-4 pt-3 d-none d-sm-block" >
             <div className="d-flex flex-column" >
               <h3 className="font-weight-bold" >{album_name}</h3>
-              <div className=" d-flex flex-row ">
-                <p className="font-weight-bold mb-0">Composed by </p>&nbsp;
-                <p className="ml-2 mb-0" >
+              <div className=" d-flex flex-row text-center">
+                <p className="font-weight-bold mb-0  ">Composed by </p>&nbsp;
+                <p className=" mb-0" >
+                &nbsp;
                 <a href={"https://www.google.com/search?q="+composer_name} className="text-secondary font-weight-bold" target="blank" >{composer_name}</a>
                 </p>
               </div>
-              <div className=" d-flex flex-row text-center">
+              <div className=" d-flex flex-row ">
                 <p className="font-weight-bold mb-0 ">Released </p>&nbsp;
                 <p className=" mb-0 font-weight-bold text-secondary" >
                 &nbsp;
@@ -124,29 +212,31 @@ class  Album_play extends React.Component{
                 </p>
               </div>
             </div>
-          </Col>
-          <Col md={9} className="pt-md-4 pt-3 d-block d-sm-none text-center" >
-            <div className="d-flex flex-column" >
-              <h3 className="font-weight-bold" >{album_name}</h3>
-              <div className=" d-flex flex-row text-center">
-                <p className="font-weight-bold mb-0 ml-5 pl-4 ">Composed by </p>&nbsp;
-                <p className=" mb-0" >
-                &nbsp;
-                <a href={"https://www.google.com/search?q="+composer_name} className="text-secondary font-weight-bold" target="blank" >{composer_name}</a>
-                </p>
+            </Col>
+            <Col md={9} className="pt-md-4 pt-3 d-block d-sm-none text-center" >
+              <div className="d-flex flex-column" >
+                <h3 className="font-weight-bold" >{album_name}</h3>
+                <div className=" d-flex flex-row text-center">
+                  <p className="font-weight-bold mb-0 ml-5 pl-4 ">Composed by </p>&nbsp;
+                  <p className=" mb-0" >
+                  &nbsp;
+                  <a href={"https://www.google.com/search?q="+composer_name} className="text-secondary font-weight-bold" target="blank" >{composer_name}</a>
+                  </p>
+                </div>
+                <div className=" d-flex flex-row ">
+                  <p className="font-weight-bold mb-0 ml-5 pl-5">Released </p>&nbsp;
+                  <p className=" mb-0 font-weight-bold text-secondary" >
+                  &nbsp;
+                 {release_date}
+                  </p>
+                </div>
               </div>
-              <div className=" d-flex flex-row ">
-                <p className="font-weight-bold mb-0 ml-5 pl-5">Released </p>&nbsp;
-                <p className=" mb-0 font-weight-bold text-secondary" >
-                &nbsp;
-               {release_date}
-                </p>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    )
+            </Col>
+          </Row>
+        </Container>
+      )
+    }
+
 
   }
 
@@ -166,13 +256,14 @@ else{
 
 }
 
-handleClick=(trackUrl)=>{
-  alert("clicked")
-}
+handleClick=(index)=>{
+  this.PlayBoard.current.handleChange(index);
+};
 // listing tracks Component
   renderCardDesktop(artist_name,track_name,track_url,index,icon){
+
     return(
-      <tr key={track_name} id="a" onClick={e=>this.handleClick(track_url)} >
+      <tr key={track_name} id="a" onClick={e=>this.handleClick(index)} >
         <td>
           {index+1}
         </td>
@@ -205,13 +296,14 @@ handleClick=(trackUrl)=>{
 
 // listing tracks Component Mobile View
   renderCardMobile(artist_name,track_name,track_url,index,icon){
+
     return(
       <div key={artist_name+track_name}>
 
         <Container  >
           <Row>
             <Col md={12} >
-              <Card className="mb-4 " id="a">
+              <Card className="mb-4 " id="a" onClick={e=>this.handleClick(index)} >
                 <Card.Body className="d-flex flex-column" >
 
                   <h5 className="font-weight-bold text-center " >
@@ -251,12 +343,12 @@ handleClick=(trackUrl)=>{
 
         <div className="textFamily " >
 
-          <Container className="pb-5 mb-5"  >
+          <Container className="pb-5 mb-5 "  >
             <Row className="">
 
               <Col md={9} className="pt-5 pl-md-5 pr-md-5"  style={{backgroundColor:'#f1f3f4'}}>
                 <Row>
-                  {this.renderImage(this.state.photo_url,this.state.album_name,this.state.release_date,this.state.composer_name)}
+                  {this.renderImage(this.state.photo_url,this.state.album_name,this.state.release_date,this.state.composer_name,this.state.type)}
                 </Row>
                 <Row className="pt-5 d-none d-sm-block" >
                   <Table  responsive>
@@ -294,7 +386,7 @@ handleClick=(trackUrl)=>{
                   </Table>
                   <hr></hr>
                 </Row>
-                <Row className="pt-5 d-block d-sm-none" >
+                <Row className="pt-5 mb-3 pb-5 d-block d-sm-none" >
 
                   {this.state.album.map((view,index)=>{
                     return(
@@ -306,16 +398,26 @@ handleClick=(trackUrl)=>{
                 </Row>
               </Col>
               <Col md={3} className="" >
-
+                <Link to="/static/tracks/[iSongs.info] 01 - Aaradhisuve Madanaari.mp3" target="_blank" download >
+                  download
+                </Link>
               </Col>
             </Row>
           </Container>
-          <PlayBoard trackUrl={this.trackUrl} />
+            {this.renderItem(this.trackUrl)}
         </div>
     );
 
 }
+renderItem=(url)=>{
 
+  if(this.state.index>=1){
+
+    return(
+      <PlayBoard ref={this.PlayBoard}  album_name={this.state.album_name} photo_url={this.state.photo_url} trackUrl={url} composer_name={this.state.composer_name} number={this.state.index-1} />
+    );
+
+  }
 };
-
+};
 export default Album_play;

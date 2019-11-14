@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'albumview.apps.AlbumviewConfig',
+    'mp3playist.apps.Mp3PlayistConfig',
+    'albums.apps.AlbumsConfig',
+    'trending.apps.TrendingConfig',
+    'artist.apps.ArtistConfig'
+
 ]
 
 MIDDLEWARE = [
@@ -75,8 +81,13 @@ WSGI_APPLICATION = 'mp3player.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mp3player',
+        'USER': 'dt_admin',
+        'PASSWORD': 'backspace2;',
+        'HOST': 'localhost',
+        'PORT': 3306,
+
     }
 }
 
@@ -105,7 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
+
 
 USE_I18N = True
 
@@ -118,3 +130,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# whitelist  localhost:3000 where frontend will be served
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://localhost:8080',
+)

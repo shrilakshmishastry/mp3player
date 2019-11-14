@@ -30,7 +30,7 @@ class Artists extends React.Component{
 
     handleCallback(key,type){
         this.props.history.push({
-            pathname:'/',
+            pathname:'/album_play',
             state:{
                 key:key,
                 type:type
