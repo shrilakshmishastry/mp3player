@@ -20,10 +20,12 @@ from albumview import views as album_board_view
 from albums import views as album_view
 from trending import views as trending_view
 from artist  import views as artist_view
+from top_album import views as top_album_view
 
 
 urlpatterns = [
     path('',views.index,name="index"),
+    path('top_album',top_album_view.top_album,name="top_album"),
     path('artist', artist_view.artist, name="artist"),
     path('trending', trending_view.trending, name='trending'),
     path('album', album_view.albums, name="albums"),

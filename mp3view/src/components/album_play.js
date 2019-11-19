@@ -1,9 +1,10 @@
 import React from 'react';
-import PlayBoard from "../presentational/playboard";
+import PlayBoard from "./../presentational/playboard";
 import axios from 'axios';
 import {Card, Col, Container, Image,Row,Table,thead,tr,th,tbody,Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
+import TopAlbum from './../presentational/top_album.js';
 
 
 
@@ -398,9 +399,7 @@ handleClick=(index)=>{
                 </Row>
               </Col>
               <Col md={3} className="" >
-                <Link to="/static/tracks/[iSongs.info] 01 - Aaradhisuve Madanaari.mp3" target="_blank" download >
-                  download
-                </Link>
+                <TopAlbum />
               </Col>
             </Row>
           </Container>

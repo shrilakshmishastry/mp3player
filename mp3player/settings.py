@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'mp3playist.apps.Mp3PlayistConfig',
     'albums.apps.AlbumsConfig',
     'trending.apps.TrendingConfig',
-    'artist.apps.ArtistConfig'
+    'artist.apps.ArtistConfig',
+    'top_album.apps.TopAlbumConfig'
 
 ]
 
