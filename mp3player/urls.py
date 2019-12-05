@@ -21,6 +21,7 @@ from albums import views as album_view
 from trending import views as trending_view
 from artist  import views as artist_view
 from top_album import views as top_album_view
+from user import views as user_view
 
 
 urlpatterns = [
@@ -31,5 +32,7 @@ urlpatterns = [
     path('album', album_view.albums, name="albums"),
     path('album_board',album_board_view.album_board,name='album_board'),
     path('track', views.tracklist, name='tracklist'),
+    path('signin',user_view.user_login,name="user"),
+    path('signup',user_view.user_signin,name='signin'),
     path('admin/', admin.site.urls),
 ]

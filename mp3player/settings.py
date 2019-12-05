@@ -42,11 +42,17 @@ INSTALLED_APPS = [
     'albums.apps.AlbumsConfig',
     'trending.apps.TrendingConfig',
     'artist.apps.ArtistConfig',
-    'top_album.apps.TopAlbumConfig'
+    'top_album.apps.TopAlbumConfig',
+    'user.apps.UserConfig',
+    'mp3view',
+    'corsheaders',
+    'rest_framework',
 
 ]
 
 MIDDLEWARE = [
+
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'mp3player.urls'
 
@@ -135,6 +143,9 @@ STATIC_URL = '/static/'
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
-    'http://localhost:8000',
-    'http://localhost:8080',
+
 )
+CSRF_HEADER_NAME=" X-CSRFToken"
+CSRF_COOKIE_NAME="shri"
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_HTTPONLY=False

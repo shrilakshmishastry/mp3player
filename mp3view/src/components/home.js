@@ -7,7 +7,7 @@ import {Route, Switch} from "react-router";
 import Favorite from "./favorite";
 import Album_play from "./album_play";
 import SignIn from "../presentational/signIn";
-import SignOut from "../presentational/signout";
+import Signup from "../presentational/signup";
 import TrackList from "../presentational/track_list";
 
 
@@ -24,7 +24,7 @@ const  Home = ()=>{
                 <Route path="/album_play" component={Album_play}/>
                 <Route path="/tracks"  component={TrackList}   />
                 <Route path="/signin" component={SignIn} />
-                <Route path="/signout" component={SignOut} />
+                <Route path="/signup" component={Signup} />
                 <Route path="/" component={Collections} />
             </Switch>
     );

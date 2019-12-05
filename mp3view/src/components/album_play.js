@@ -4,7 +4,7 @@ import axios from 'axios';
 import {Card, Col, Container, Image,Row,Table,thead,tr,th,tbody,Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 // import {Link} from "react-router-dom";
-import TopAlbum from './../presentational/top_album.js';
+
 
 
 
@@ -347,7 +347,7 @@ handleClick=(index)=>{
           <Container className="pb-5 mb-5 "  >
             <Row className="">
 
-              <Col md={9} className="pt-5 pl-md-5 pr-md-5"  style={{backgroundColor:'#f1f3f4'}}>
+              <Col md={12} className="pt-5 pl-md-5 pr-md-5"  style={{backgroundColor:'#f1f3f4'}}>
                 <Row>
                   {this.renderImage(this.state.photo_url,this.state.album_name,this.state.release_date,this.state.composer_name,this.state.type)}
                 </Row>
@@ -398,9 +398,7 @@ handleClick=(index)=>{
                   })}
                 </Row>
               </Col>
-              <Col md={3} className="" >
-                <TopAlbum />
-              </Col>
+            
             </Row>
           </Container>
             {this.renderItem(this.trackUrl)}

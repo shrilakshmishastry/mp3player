@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SignOut = ()=>{
+const Signup = ()=>{
     return(
         <div>
            <h1>
@@ -10,4 +10,4 @@ const SignOut = ()=>{
     );
 };
 
-export default SignOut;
+export default Signup;
