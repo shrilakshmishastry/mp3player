@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'albumview.apps.AlbumviewConfig',
     'mp3playist.apps.Mp3PlayistConfig',
     'albums.apps.AlbumsConfig',
@@ -45,14 +46,13 @@ INSTALLED_APPS = [
     'top_album.apps.TopAlbumConfig',
     'user.apps.UserConfig',
     'mp3view',
-    'corsheaders',
     'rest_framework',
-
 ]
 
 MIDDLEWARE = [
 
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,6 +87,16 @@ WSGI_APPLICATION = 'mp3player.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
 
 DATABASES = {
     'default': {
@@ -143,9 +153,10 @@ STATIC_URL = '/static/'
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
+    'http://localhost:8000'
 
 )
-CSRF_HEADER_NAME=" X-CSRFToken"
-CSRF_COOKIE_NAME="shri"
-CSRF_USE_SESSIONS = False
-CSRF_COOKIE_HTTPONLY=False
+# CSRF_HEADER_NAME=" X-CSRFToken"
+# CSRF_COOKIE_NAME="shri"
+# CSRF_USE_SESSIONS = False
+# CSRF_COOKIE_HTTPONLY=False
