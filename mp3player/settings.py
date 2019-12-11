@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'mp3view',
     'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -95,7 +96,8 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-    ),
+         'rest_framework.authentication.TokenAuthentication',
+        ),
 }
 
 DATABASES = {
@@ -160,3 +162,4 @@ CORS_ORIGIN_WHITELIST = (
 # CSRF_COOKIE_NAME="shri"
 # CSRF_USE_SESSIONS = False
 # CSRF_COOKIE_HTTPONLY=False
+CORS_ALLOW_CREDENTIALS = True

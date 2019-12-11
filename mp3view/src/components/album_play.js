@@ -3,6 +3,7 @@ import PlayBoard from "./../presentational/playboard";
 import axios from 'axios';
 import {Card, Col, Container, Image,Row,Table,thead,tr,th,tbody,Dropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import ReactLoading from 'react-loading';
 // import {Link} from "react-router-dom";
 
 
@@ -15,6 +16,7 @@ constructor(props){
 }
 
   state={
+    loading:true,
     album:[{
       track_name:[],
       artist_name:[],
@@ -107,9 +109,11 @@ constructor(props){
         index:1,
 
       });
+
     })
     .catch((err)=>{
       console.log(err);
+
     })
   }
 
@@ -339,6 +343,19 @@ handleClick=(index)=>{
   }
 
   render(){
+    if(this.state.loading){
+       setInterval( ()=> {
+        this.setState({
+          loading:false
+        });
+      }, 3000);
+      return(
+        <div>
+        <Row className="justify-content-center pt-5" >
+          <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />);
+        </Row>
+      </div>)
+    }
 
    return(
 
@@ -398,7 +415,7 @@ handleClick=(index)=>{
                   })}
                 </Row>
               </Col>
-            
+
             </Row>
           </Container>
             {this.renderItem(this.trackUrl)}

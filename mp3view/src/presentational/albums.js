@@ -4,10 +4,12 @@ import {Card, Col, Container, Image, Row} from "react-bootstrap";
 import TrackList from "./track_list";
 import axios from "axios";
 import Music from './../images/imageedit_1_2296999990.png';
+import ReactLoading from 'react-loading';
 
 
 class Albums extends  React.Component{
     state ={
+        loading:true,
         albums : [ ],
         key:[ ],
         comp_name:[]
@@ -74,6 +76,19 @@ class Albums extends  React.Component{
     }
 
     render(){
+      if(this.state.loading){
+         setInterval( ()=> {
+          this.setState({
+            loading:false
+          });
+        }, 2000);
+        return(
+          <div>
+          <Row className="justify-content-center pt-5" >
+            <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />);
+          </Row>
+        </div>)
+      }
         return(
             <div className="textFamily" >
                 <Header   url={Music} album={"/"} tag={'Collection'} />

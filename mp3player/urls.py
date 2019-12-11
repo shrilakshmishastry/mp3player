@@ -22,9 +22,15 @@ from trending import views as trending_view
 from artist  import views as artist_view
 from top_album import views as top_album_view
 from user import views as user_view
+from django.conf.urls import url
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import refresh_jwt_token
+from rest_framework_jwt.views import verify_jwt_token
+
 
 
 urlpatterns = [
+    path('token-auth/',obtain_jwt_token),
     path('',views.index,name="index"),
     path('top_album',top_album_view.top_album,name="top_album"),
     path('artist', artist_view.artist, name="artist"),

@@ -4,9 +4,11 @@ import {Card, Col, Container, Image, Row} from "react-bootstrap";
 import Header from "./Header";
 import Music from "../images/imageedit_1_2296999990.png";
 import TrackList from "./track_list";
+import ReactLoading from 'react-loading';
 
 class Artists extends React.Component{
     state ={
+        loading:true,
         artist_name:[],
         artist_id:[],
         artist_photo_url:[],
@@ -48,7 +50,6 @@ class Artists extends React.Component{
                     <p className="mb-0 small font-weight-bold">{name}</p>
                     <p className="mb-0 small font-weight-bold text-secondary">{album}</p>
                 </div>
-
             </Col>
 
 
@@ -57,6 +58,19 @@ class Artists extends React.Component{
     }
 
     render(){
+      if(this.state.loading){
+         setInterval( ()=> {
+          this.setState({
+            loading:false
+          });
+        }, 2000);
+        return(
+          <div>
+          <Row className="justify-content-center pt-5" >
+            <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />);
+          </Row>
+        </div>)
+      }
         return(
             <div>
                 <Header   url={Music} album={"/"} tag={'Collection'} />

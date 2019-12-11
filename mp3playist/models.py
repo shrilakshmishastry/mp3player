@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 # table to maintain artist data
@@ -56,15 +57,11 @@ class Album_track(models.Model):
 
 
 # table to maintain data of user
-class User(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-    Track_id = models.ManyToManyField(Track, through='Favorite')
-    email = models.EmailField(max_length=254)
+
 
 
 # table to m to m relationship between user ans track
 class Favorite(models.Model):
-    User_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    User_id = models.ForeignKey(get_user_model(),
+      on_delete=models.CASCADE)
     Track_id = models.ForeignKey(Track, on_delete=models.CASCADE)
