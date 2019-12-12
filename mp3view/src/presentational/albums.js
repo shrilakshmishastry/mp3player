@@ -85,7 +85,7 @@ class Albums extends  React.Component{
         return(
           <div>
           <Row className="justify-content-center pt-5" >
-            <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />);
+            <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />
           </Row>
         </div>)
       }

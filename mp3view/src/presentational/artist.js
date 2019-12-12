@@ -17,7 +17,7 @@ class Artists extends React.Component{
     componentDidMount(): void {
         axios.get('artist')
             .then((res)=>{
-                console.log(res.data);
+
 
                 for (let i=0;i<res.data['value'].length;i++){
                     this.setState(prevState=>({
@@ -63,11 +63,11 @@ class Artists extends React.Component{
           this.setState({
             loading:false
           });
-        }, 2000);
+        }, 3000);
         return(
           <div>
           <Row className="justify-content-center pt-5" >
-            <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />);
+            <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />
           </Row>
         </div>)
       }

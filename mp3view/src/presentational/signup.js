@@ -8,7 +8,7 @@ class Signup extends React.Component{
   state={
     name:"",
     password:"",
-    email:" ",
+    email:"",
       };
 
 handleSubmit=(event)=>{
@@ -24,7 +24,7 @@ handleSubmit=(event)=>{
     }
   })
   .then((res)=>{
-  
+
     this.props.history.push("/signin");
   })
   .catch((res)=>{

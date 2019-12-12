@@ -26,11 +26,13 @@ from django.conf.urls import url
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework_jwt.views import verify_jwt_token
+from favorite_handle  import views as favorite_view
 
 
 
 urlpatterns = [
     path('token-auth/',obtain_jwt_token),
+    path('favorite',favorite_view.favorite_view,name="favorite_view"),
     path('',views.index,name="index"),
     path('top_album',top_album_view.top_album,name="top_album"),
     path('artist', artist_view.artist, name="artist"),

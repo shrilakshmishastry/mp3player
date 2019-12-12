@@ -2,20 +2,20 @@ import React from 'react';
 import {Container,Row,Col,Image} from 'react-bootstrap';
 import axios from 'axios';
 import musicLogin from './../images/music.png';
-import Cookies from 'js-cookie';
+
 import {Link} from "react-router-dom";
 
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
 
-Cookies.set("csrftoken",'csrftoken')
-localStorage.removeItem("mydata");
+
+
 
 class SignIn extends React.Component{
   state={
-    value:" ",
-    password:""
+    value:"",
+    password:"",
   };
 
   componentDidMount(){
@@ -37,7 +37,7 @@ handleSubmit=(event)=>{
 
       let token = res.data['token']
       localStorage.setItem('token',token);
-      this.props.history.push("/");
+      window.location = "/";
     })
     .catch((error)=>{
       alert("Please enter valid data");

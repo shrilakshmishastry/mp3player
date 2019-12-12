@@ -9,6 +9,7 @@ import Album_play from "./album_play";
 import SignIn from "../presentational/signIn";
 import Signup from "../presentational/signup";
 import TrackList from "../presentational/track_list";
+import Logout from '../presentational/logout.js';
 
 
 
@@ -17,7 +18,7 @@ const  Home = ()=>{
 
     return(
          <Switch>
-
+                <Route path="/logout" component={Logout} />
                 <Route path="/albums" component={Albums}/>
                 <Route path="/artists" component={Artists}/>
                 <Route path="/favorite" component={Favorite} />

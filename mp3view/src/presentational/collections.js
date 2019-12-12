@@ -66,6 +66,7 @@ class Collection extends  React.Component{
         );
     }
     componentDidMount(): void {
+      
         axios.get("trending")
             .then((res)=> {
 
@@ -140,7 +141,7 @@ class Collection extends  React.Component{
         return(
           <div>
           <Row className="justify-content-center pt-5" >
-            <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />);
+            <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />
           </Row>
         </div>)
       }

@@ -1,16 +1,19 @@
 from django.shortcuts import render
 from django.http import JsonResponse,HttpResponse
 from django.core import serializers
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
 
 
 # Create your views here.
-from mp3playist.models import  Track,Album,Album_track
+from mp3playist.models import  Track,Album,Album_track,Favorite
 
 
 def album_board(request):
     if request.method == 'GET':
         album_data =[]
-        if request.GET.get('type') == 'album':
+
+        if request.GET.get('type') == 'album' :
             print(request.GET.get('key'))
             data = Album.objects.raw(
                 """
@@ -124,7 +127,7 @@ def album_board(request):
                 album_data.append(alinfo)
 
         elif request.GET.get('type')    == 'composer':
-            
+
             data = Album.objects.raw(
             """
                  SELECT
@@ -251,6 +254,17 @@ def album_board(request):
                 }
 
                 album_data.append(alinfo)
+        if( request.GET.get('token')):
+            user_token = request.GET.get('token')
+            token=Token.objects.get(key=user_token)
+            print(token.user_id)
+            user = Favorite.objects.filter(User_id=token.user_id)
+            favorite = []
+            for i in user:
+                obj = i.Track_id
+                favorite.append(obj.name)
 
-        return JsonResponse({'value':album_data})
+            return JsonResponse({'value':album_data,"favorite":favorite})
+        return JsonResponse({'value':album_data})            
+
     return JsonResponse({'value':'data'})

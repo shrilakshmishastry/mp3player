@@ -21,8 +21,10 @@ constructor(props){
       track_name:[],
       artist_name:[],
       track_url:[],
-      icon:[]
+      icon:[],
+
     }],
+
     photo_url:"",
     album_name:"",
     composer_name:[],
@@ -31,90 +33,192 @@ constructor(props){
     index:0
   };
   trackUrl = [];
+  favorite = [];
 
   componentDidMount(){
-
-    axios.get('album_board',{
-      params:{
-        key:this.props.location.state.key,
-        type:this.props.location.state.type
-      }
-    })
-    .then((res)=>{
-
-      let  result = res.data;
-
-      if(this.state.album.length){
-          this.setState({
-            album:[
-              {
-                track_name:result.value[0].track_name,
-                artist_name:result.value[0].artist_name,
-                track_url:result.value[0].track_url,
-                icon:'far'
-              }
-
-            ]
-          })
-      }
-
-      this.setState({
-        type:result.value[0].type,
-        photo_url:result.value[0].photo_url,
-        album_name:result.value[0].album_name,
-        composer_name:result.value[0].composer_name,
-        release_date:result.value[0].release_date
-      });
-
-      for (var i = 1; i < result.value.length; i++) {
-        let bool ;
-        let t;
-        for (var j=0;  j<this.state.album.length;j++){
-           bool = this.state.album[j].track_name.includes(result.value[i].track_name);
-           if(bool){
-             t = j;
-             break;
-           }
+    if(localStorage.getItem('token')===null){
+      axios.get('album_board',{
+        params:{
+          key:this.props.location.state.key,
+          type:this.props.location.state.type,
 
         }
+      })
+      .then((res)=>{
 
-        if(!bool){
+        let  result = res.data;
 
+        if(this.state.album.length){
             this.setState({
               album:[
-                ...this.state.album,
                 {
-                  track_name:result.value[i].track_name,
-                  artist_name:result.value[i].artist_name,
-                  track_url:result.value[i].track_url,
-                  icon:"far"
+                  track_name:result.value[0].track_name,
+                  artist_name:result.value[0].artist_name,
+                  track_url:result.value[0].track_url,
+                  icon:'far'
                 }
+
               ]
             })
-
         }
-        else{
-            var statecopy = Object.assign({},this.state);
 
-            statecopy.album[t].artist_name= statecopy.album[t].artist_name.concat("," +result.value[i].artist_name);
-            this.setState(statecopy)      ;
+        this.setState({
+          type:result.value[0].type,
+          photo_url:result.value[0].photo_url,
+          album_name:result.value[0].album_name,
+          composer_name:result.value[0].composer_name,
+          release_date:result.value[0].release_date
+        });
 
+        for (var i = 1; i < result.value.length; i++) {
+          let bool ;
+          let t;
+          for (var j=0;  j<this.state.album.length;j++){
+             bool = this.state.album[j].track_name.includes(result.value[i].track_name);
+             if(bool){
+               t = j;
+               break;
+             }
+
+          }
+
+          if(!bool){
+
+              this.setState({
+                album:[
+                  ...this.state.album,
+                  {
+                    track_name:result.value[i].track_name,
+                    artist_name:result.value[i].artist_name,
+                    track_url:result.value[i].track_url,
+                    icon:"far"
+                  }
+                ]
+              })
+
+          }
+          else{
+              var statecopy = Object.assign({},this.state);
+
+              statecopy.album[t].artist_name= statecopy.album[t].artist_name.concat("," +result.value[i].artist_name);
+              this.setState(statecopy)      ;
+
+          }
         }
-      }
-      for (let i=0;i<this.state.album.length;i++){
-        this.trackUrl.push(this.state.album[i].track_url)
-      }
+        for (let i=0;i<this.state.album.length;i++){
+          this.trackUrl.push(this.state.album[i].track_url)
+        }
 
-      this.setState({
-        index:1,
+        this.setState({
+          index:1,
 
-      });
+        });
 
-    })
-    .catch((err)=>{
-      console.log(err);
+      })
+      .catch((err)=>{
+        console.log(err);
 
-    })
+      })
+    }
+    else{
+      axios.get('album_board',{
+        params:{
+          key:this.props.location.state.key,
+          type:this.props.location.state.type,
+          token:localStorage.getItem('token')
+        }
+      })
+      .then((res)=>{
+
+        let  result = res.data;
+
+        if(this.state.album.length){
+            this.setState({
+              album:[
+                {
+                  track_name:result.value[0].track_name,
+                  artist_name:result.value[0].artist_name,
+                  track_url:result.value[0].track_url,
+                  icon:'far'
+                }
+
+              ]
+            })
+        }
+
+        this.setState({
+          type:result.value[0].type,
+          photo_url:result.value[0].photo_url,
+          album_name:result.value[0].album_name,
+          composer_name:result.value[0].composer_name,
+          release_date:result.value[0].release_date
+        });
+
+        for (var i = 1; i < result.value.length; i++) {
+          let bool ;
+          let t;
+          for (var j=0;  j<this.state.album.length;j++){
+             bool = this.state.album[j].track_name.includes(result.value[i].track_name);
+             if(bool){
+               t = j;
+               break;
+             }
+
+          }
+
+          if(!bool){
+
+              this.setState({
+                album:[
+                  ...this.state.album,
+                  {
+                    track_name:result.value[i].track_name,
+                    artist_name:result.value[i].artist_name,
+                    track_url:result.value[i].track_url,
+                    icon:"far"
+                  }
+                ]
+              })
+
+          }
+          else{
+              var statecopy = Object.assign({},this.state);
+
+              statecopy.album[t].artist_name= statecopy.album[t].artist_name.concat("," +result.value[i].artist_name);
+              this.setState(statecopy)      ;
+
+          }
+        }
+        for (let i=0;i<this.state.album.length;i++){
+          this.trackUrl.push(this.state.album[i].track_url)
+        }
+
+        this.setState({
+          index:1,
+
+        });
+
+        for (let i=0;i<result.favorite.length;i++){
+          let data =result.favorite[i];
+          for(let j=0;j<this.state.album.length;j++){
+
+
+
+            if(this.state.album[j].track_name===data){
+              this.favorite[j] = 1;
+              var statecopy1 = Object.assign({},this.state);
+              statecopy1.album[j].icon="fas";
+              this.setState(statecopy1)      ;
+            }
+          }
+        }
+
+      })
+      .catch((err)=>{
+        console.log(err);
+
+      })
+    }
   }
 
 
@@ -245,18 +349,55 @@ constructor(props){
 
   }
 
-handleIconClick=(index)=>{
-console.log(index);
+handleIconClick=(index,track_name)=>{
   var statecopy = Object.assign({},this.state);
-if (this.state.album[index].icon==="far"){
-  statecopy.album[index].icon="fas";
-  this.setState(statecopy)      ;
-}
-else{
-  statecopy.album[index].icon="far";
-  this.setState(statecopy)      ;
-}
+  if(localStorage.getItem('token')===null){
+    alert("Please SignIn");
+    window.location = "/signin";
+  }
+  else{
+    if (this.state.album[index].icon==="far"){
+        axios({
+          method:'POST',
+          url:'favorite',
+          data:{
+            track_name:track_name,
+            type:"far",
+            token:localStorage.getItem('token')
+          }
+        })
+        .then((res)=>{
 
+        })
+        .catch((err)=>{
+
+        })
+      statecopy.album[index].icon="fas";
+      this.setState(statecopy)      ;
+    }
+    else{
+      axios({
+        method:'POST',
+        url:'favorite',
+        data:{
+          track_name:track_name,
+          type:"fas",
+          token:localStorage.getItem('token')
+        }
+      })
+      .then((res)=>{
+
+      })
+      .catch((err)=>{
+
+      })
+      statecopy.album[index].icon="far";
+      this.setState(statecopy)      ;
+    }
+
+
+
+  }
 
 
 }
@@ -265,7 +406,7 @@ handleClick=(index)=>{
   this.PlayBoard.current.handleChange(index);
 };
 // listing tracks Component
-  renderCardDesktop(artist_name,track_name,track_url,index,icon){
+  renderCardDesktop(artist_name,track_name,track_url,index,icon,favorite){
 
     return(
       <tr key={track_name} id="a" onClick={e=>this.handleClick(index)} >
@@ -273,7 +414,10 @@ handleClick=(index)=>{
           {index+1}
         </td>
         <td>
-          <FontAwesomeIcon icon={[icon,'heart']} style={{color:'red'}} onClick={ e=> this.handleIconClick(index)}  />
+
+          <FontAwesomeIcon icon={[icon,'heart']} style={{color:'red'}} onClick={ e=> this.handleIconClick(index,track_name)}  />
+
+
         </td>
         <td>
 
@@ -300,7 +444,7 @@ handleClick=(index)=>{
   }
 
 // listing tracks Component Mobile View
-  renderCardMobile(artist_name,track_name,track_url,index,icon){
+  renderCardMobile(artist_name,track_name,track_url,index,icon,favorite){
 
     return(
       <div key={artist_name+track_name}>
@@ -319,7 +463,7 @@ handleClick=(index)=>{
                     {artist_name}
                   </div>
                   <div className="d-flex flex-row justify-content-center" >
-                    <FontAwesomeIcon icon={[icon,'heart']}  className=" mt-2 mr-5" style={{color:'red'}} onClick={ e=> this.handleIconClick(index)}  />
+                    <FontAwesomeIcon icon={[icon,'heart']}  className=" mt-2 mr-5" style={{color:'red'}} onClick={ e=> this.handleIconClick(index,track_name)}  />
                     <Dropdown className="ml-5" >
                       <Dropdown.Toggle id="dropdown-custom-1" variant="red" style={{color:'white'}}>
                         <FontAwesomeIcon icon={['fas','ellipsis-h']} style={{color:'black'}} />
@@ -352,7 +496,7 @@ handleClick=(index)=>{
       return(
         <div>
         <Row className="justify-content-center pt-5" >
-          <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />);
+          <ReactLoading color={"red"} type={"spokes"} className="" height={667} width={375} />
         </Row>
       </div>)
     }
@@ -392,9 +536,10 @@ handleClick=(index)=>{
                     <tbody>
 
                     {this.state.album.map((view,index)=>{
+
                       return(
 
-                        this.renderCardDesktop(view.artist_name,view.track_name,view.track_url,index,view.icon)
+                        this.renderCardDesktop(view.artist_name,view.track_name,view.track_url,index,view.icon,this.favorite[index])
 
                       );
                     })}

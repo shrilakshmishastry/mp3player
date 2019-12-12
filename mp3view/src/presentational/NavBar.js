@@ -1,11 +1,33 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 // import axios from 'axios';
 import {Nav, Navbar} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import SearchBar from "./Searchbar";
+import axios from 'axios';
 
 const NavBar = ()=>{
+  const [name,setName] = useState(" ");
+
+  useEffect(()=>{
+    if(localStorage.getItem('token')!==null){
+      setLogin(true);
+      axios.get('signin',{
+        params:{
+        token:localStorage.getItem('token')
+      }
+      })
+      .then((res)=>{
+
+        let data = res.data['value']
+        setName(data);
+      })
+      .catch((err)=>{
+
+      })
+    }
+  });
   const[login,setLogin] = useState(false);
+
   if(login){
     return(
         <div className="textFamily" >
@@ -37,10 +59,12 @@ const NavBar = ()=>{
                             Favorite
                         </Nav.Link>
 
-                        <Nav.Link href="/albums" className="pl-5">
-                          name
+                        <Nav.Link  className="pl-5 text-dark font-weight-bold">
+                        Hello {name} !!
                         </Nav.Link>
-
+                        <Nav.Link href="/logout" className="pl-5 "  >
+                          Logout
+                        </Nav.Link>
 
                     </Nav>
                 </Navbar.Collapse>

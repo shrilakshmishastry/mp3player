@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'mp3view',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'favorite_handle.apps.FavoriteHandleConfig'
 ]
 
 MIDDLEWARE = [

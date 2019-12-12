@@ -18,7 +18,11 @@ from rest_framework.status import (
 # Create your views here.
 @csrf_exempt
 def user_login(request):
-
+    if (request.method == "GET"):
+        user_token=request.GET.get('token')
+        token=Token.objects.get(key=user_token)
+        username = token.user.username
+        return JsonResponse({"value":username})
 
     if(request.method=="POST"):
         data = json.loads(request.body.decode('utf-8'))
