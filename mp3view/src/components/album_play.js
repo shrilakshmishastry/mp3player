@@ -1,7 +1,7 @@
 import React from 'react';
 import PlayBoard from "./../presentational/playboard";
 import axios from 'axios';
-import {Card, Col, Container, Image,Row,Table,thead,tr,th,tbody,Dropdown} from "react-bootstrap";
+import {Card, Col, Container, Image,Row,Table,thead,tr,th,tbody} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import ReactLoading from 'react-loading';
 // import {Link} from "react-router-dom";
@@ -427,17 +427,7 @@ handleClick=(index)=>{
           {artist_name}
         </td>
         <td>
-          <Dropdown  >
-            <Dropdown.Toggle id="dropdown-custom-1" variant="red" style={{color:'white'}}>
-              <FontAwesomeIcon icon={['fas','ellipsis-h']} style={{color:'black'}} />
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="" >
-              <Dropdown.Item eventKey="1">
-              Download
-              <FontAwesomeIcon icon={['fas','download']} className="ml-3"  />
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+
         </td>
       </tr>
     )
@@ -462,20 +452,9 @@ handleClick=(index)=>{
                     <p className="mb-0 font-weight-bold textColor">ARTISTS:</p>
                     {artist_name}
                   </div>
-                  <div className="d-flex flex-row justify-content-center" >
-                    <FontAwesomeIcon icon={[icon,'heart']}  className=" mt-2 mr-5" style={{color:'red'}} onClick={ e=> this.handleIconClick(index,track_name)}  />
-                    <Dropdown className="ml-5" >
-                      <Dropdown.Toggle id="dropdown-custom-1" variant="red" style={{color:'white'}}>
-                        <FontAwesomeIcon icon={['fas','ellipsis-h']} style={{color:'black'}} />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu className="" >
-                        <Dropdown.Item eventKey="1">
-                          Download
-                          <FontAwesomeIcon icon={['fas','download']} className="ml-3"  />
-                        </Dropdown.Item>
+                  <div className="text-center" >
+                    <FontAwesomeIcon icon={[icon,'heart']}  className=" mt-2 mr-5 ml-4" style={{color:'red',fontSize:'30px'}} onClick={ e=> this.handleIconClick(index,track_name)}  />
 
-                      </Dropdown.Menu>
-                    </Dropdown>
                   </div>
                 </Card.Body>
               </Card>
