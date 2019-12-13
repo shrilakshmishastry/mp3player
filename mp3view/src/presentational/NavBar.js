@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react';
 // import axios from 'axios';
 import {Nav, Navbar} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import SearchBar from "./Searchbar";
 import axios from 'axios';
 
 const NavBar = ()=>{
@@ -49,15 +48,13 @@ const NavBar = ()=>{
                         <Nav.Link  href='/artists' className="pl-5">
                             Artists
                         </Nav.Link>
-
-                    </Nav>
-                    <div className="d-none d-sm-block" >
-                        <SearchBar/>
-                    </div>
-                    <Nav className="ml-auto font-weight-bold">
                         <Nav.Link href='/favorite' className="pl-5">
                             Favorite
                         </Nav.Link>
+
+                    </Nav>
+
+                    <Nav className="ml-auto font-weight-bold">
 
                         <Nav.Link  className="pl-5 text-dark font-weight-bold">
                         Hello {name} !!
@@ -69,9 +66,7 @@ const NavBar = ()=>{
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            <div className="d-block d-sm-none">
-                <SearchBar/>
-            </div>
+
         </div>
 
     );
@@ -97,15 +92,13 @@ const NavBar = ()=>{
                         <Nav.Link  href='/artists' className="pl-5">
                             Artists
                         </Nav.Link>
-
-                    </Nav>
-                    <div className="d-none d-sm-block" >
-                        <SearchBar/>
-                    </div>
-                    <Nav className="ml-auto font-weight-bold">
                         <Nav.Link href='/favorite' className="pl-5">
                             Favorite
                         </Nav.Link>
+                    </Nav>
+
+                    <Nav className="ml-auto font-weight-bold">
+
 
                         <Nav.Link href="/signin" className="pl-5">
                             Sign in
@@ -115,9 +108,7 @@ const NavBar = ()=>{
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            <div className="d-block d-sm-none">
-                <SearchBar/>
-            </div>
+
         </div>
 
     );
