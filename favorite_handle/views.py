@@ -8,6 +8,25 @@ from django.contrib.auth.models import User
 # Create your views here.
 @csrf_exempt
 def favorite_view(request):
+    if(request.method == 'GET'):
+        user_token = request.GET.get("token")
+        token=Token.objects.get(key=user_token)
+        user = User.objects.filter(id = token.user_id)
+        for u in user:
+            user_name = u
+        track_info =[]
+        favorite = Favorite.objects.filter(User_id = user_name)
+        for f in  favorite :
+            track_data = {
+                "type":"track",
+                "track_id":f.Track_id.id,
+                "track_name":f.Track_id.name,
+                "release_date":f.Track_id.release_date,
+                "photo_url":f.Track_id.photo_url
+            }
+            track_info.append(track_data)
+        
+        return JsonResponse({"value":track_info})
     if(request.method == 'POST'):
         data = json.loads(request.body.decode('utf-8'))
         print(data['track_name'])
