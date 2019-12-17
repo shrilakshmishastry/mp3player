@@ -8,7 +8,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install pipenv 
 
 ```bash
 pip install pipenv
-pipenv sheel
+pipenv shell
 ```
 Use the packaging tool [pipenv](https://github.com/pypa/pipenv) to install required dependency .
 
