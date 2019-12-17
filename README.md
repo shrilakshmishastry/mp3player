@@ -23,7 +23,10 @@ Use the package manager [npm](https://docs.npmjs.com/cli/install) to install mp3
 ```bash
 npm start
 ```
-
+To run python  server use 
+```bash
+python manage.py runserver
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
